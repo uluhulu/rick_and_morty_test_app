@@ -1,11 +1,25 @@
 import 'package:rick_and_morty_test_app/domain/character.dart';
 
-abstract class CharacterListState {}
+abstract class CharacterListState {
+  final List<Character> characterList;
 
-class LoadingState extends CharacterListState {}
+  CharacterListState({required this.characterList});
+}
+
+class InitialState extends CharacterListState {
+  InitialState({required super.characterList});
+}
 
 class CharacterListLoadedState extends CharacterListState {
   final List<Character> characterList;
+  final List<Character> characterFromDBList;
 
-  CharacterListLoadedState({required this.characterList});
+  CharacterListLoadedState({
+    required this.characterList,
+    required this.characterFromDBList,
+  }) : super(characterList: characterList);
+}
+
+class LoadData extends CharacterListLoadedState {
+  LoadData({required super.characterList, required super.characterFromDBList});
 }

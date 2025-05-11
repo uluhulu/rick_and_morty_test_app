@@ -16,7 +16,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Rick and Morty Test App')),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
@@ -31,8 +30,8 @@ class _MainPageState extends State<MainPage> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.favorite_outline_outlined)),
-            selectedIcon: Icon(Icons.favorite),
+            icon: Badge(child: Icon(Icons.star_outline_outlined)),
+            selectedIcon: Icon(Icons.star),
             label: 'Favorite',
           ),
         ],

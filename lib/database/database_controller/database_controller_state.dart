@@ -1,0 +1,15 @@
+import 'package:rick_and_morty_test_app/domain/character.dart';
+
+abstract class DatabaseControllerState {
+  final List<Character> characterListFromDB;
+
+  DatabaseControllerState({required this.characterListFromDB});
+}
+
+class DatabaseInitialState extends DatabaseControllerState {
+  DatabaseInitialState({required super.characterListFromDB});
+}
+
+class DatabaseChanged extends DatabaseControllerState {
+  DatabaseChanged({required super.characterListFromDB});
+}
