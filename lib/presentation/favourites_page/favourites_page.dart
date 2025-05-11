@@ -26,68 +26,77 @@ class FavouritesPage extends StatelessWidget {
             ).updateList(state.characterListFromDB);
           }
         },
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text("Favorites"),
-            actions: <Widget>[
-              BlocBuilder<FavoritePageCubit, FavoritePageState>(
-                builder: (BuildContext context, FavoritePageState state) {
-                  return PopupMenuButton<String>(
-                    onSelected: (_) {
-                      Provider.of<FavoritePageCubit>(
-                        context,
-                        listen: false,
-                      ).sortName();
-                    },
-                    itemBuilder: (BuildContext context) {
-                      return [
-                        PopupMenuItem<String>(
-                          value: "sort_by_name",
-                          child: Text("Сортировать по имени"),
-                        ),
-                      ];
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
-          body: BlocBuilder<FavoritePageCubit, FavoritePageState>(
-            builder: (context, state) {
-              if (state is LoadingState) {
-                return Center(child: CircularProgressIndicator());
-              }
-              if (state is FavoriteListLoadedState) {
-                var characterList = state.characterList;
+        child: _FavoritesPageBody(),
+      ),
+    );
+  }
+}
 
-                return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: characterList.length,
-                  itemBuilder: (context, index) {
-                    var character = characterList[index];
-                    return CharacterCard(
-                      imagePath: character.image,
-                      name: character.name,
-                      status: character.status,
-                      iconWidget: IconButton(
-                        onPressed: () async {
-                          await Provider.of<DatabaseCubit>(
-                            context,
-                            listen: false,
-                          ).deleteItem(characterList[index].id);
-                        },
-                        icon: Icon(Icons.star),
-                      ),
-                    );
-                  },
-                );
-              }
-              return SizedBox();
+class _FavoritesPageBody extends StatelessWidget {
+  const _FavoritesPageBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Favorites"),
+        actions: <Widget>[
+          BlocBuilder<FavoritePageCubit, FavoritePageState>(
+            builder: (BuildContext context, FavoritePageState state) {
+              return PopupMenuButton<String>(
+                onSelected: (_) {
+                  Provider.of<FavoritePageCubit>(
+                    context,
+                    listen: false,
+                  ).sortName();
+                },
+                itemBuilder: (BuildContext context) {
+                  return [
+                    PopupMenuItem<String>(
+                      value: "sort_by_name",
+                      child: Text("Сортировать по имени"),
+                    ),
+                  ];
+                },
+              );
             },
           ),
-        ),
+        ],
+      ),
+      body: BlocBuilder<FavoritePageCubit, FavoritePageState>(
+        builder: (context, state) {
+          if (state is LoadingState) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (state is FavoriteListLoadedState) {
+            var characterList = state.characterList;
+
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              itemCount: characterList.length,
+              itemBuilder: (context, index) {
+                var character = characterList[index];
+                return CharacterCard(
+                  imagePath: character.image,
+                  name: character.name,
+                  status: character.status,
+                  iconWidget: IconButton(
+                    onPressed: () async {
+                      await Provider.of<DatabaseCubit>(
+                        context,
+                        listen: false,
+                      ).deleteItem(characterList[index].id);
+                    },
+                    icon: Icon(Icons.star),
+                  ),
+                );
+              },
+            );
+          }
+          return SizedBox();
+        },
       ),
     );
   }

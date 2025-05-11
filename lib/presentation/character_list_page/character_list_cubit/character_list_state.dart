@@ -11,13 +11,12 @@ class InitialState extends CharacterListState {
 }
 
 class CharacterListLoadedState extends CharacterListState {
-  final List<Character> characterList;
   final List<Character> characterFromDBList;
 
   CharacterListLoadedState({
-    required this.characterList,
+    required super.characterList,
     required this.characterFromDBList,
-  }) : super(characterList: characterList);
+  });
 }
 
 class LoadData extends CharacterListLoadedState {

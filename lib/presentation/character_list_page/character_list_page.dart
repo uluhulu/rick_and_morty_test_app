@@ -20,11 +20,6 @@ class _CharacterListPageState extends State<CharacterListPage> {
   late final CharacterListCubit _characterListCubit;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     Provider.of<DatabaseCubit>(context, listen: false).getALLCharacters();
@@ -48,73 +43,83 @@ class _CharacterListPageState extends State<CharacterListPage> {
           _characterListCubit.updateListFromDB(state.characterListFromDB);
         }
       },
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Rick and Morty Test App')),
-        body: BlocBuilder<CharacterListCubit, CharacterListState>(
-          builder: (context, state) {
-            if (state is InitialState) {
-              return Center(child: CircularProgressIndicator());
-            }
-            if (state is CharacterListLoadedState) {
-              var characterList = state.characterList;
-              var characterFromDBList = state.characterFromDBList;
+      child: _CharacterListBody(scrollController: _scrollController),
+    );
+  }
+}
 
-              return Column(
-                children: [
-                  Expanded(
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                      ),
-                      itemCount: characterList.length,
-                      controller: _scrollController,
-                      itemBuilder: (context, index) {
-                        bool inFav =
-                            characterFromDBList.firstWhereOrNull(
-                              (element) =>
-                                  element.id == characterList[index].id,
-                            ) !=
-                            null;
-                        var character = characterList[index];
-                        return CharacterCard(
-                          imagePath: character.image,
-                          name: character.name,
-                          status: character.status,
-                          iconWidget:
-                              inFav
-                                  ? IconButton(
-                                    onPressed: () async {
-                                      await Provider.of<DatabaseCubit>(
-                                        context,
-                                        listen: false,
-                                      ).deleteItem(characterList[index].id);
-                                    },
-                                    icon: Icon(Icons.star),
-                                  )
-                                  : IconButton(
-                                    onPressed: () async {
-                                      await Provider.of<DatabaseCubit>(
-                                        context,
-                                        listen: false,
-                                      ).writeToDB(characterList[index]);
-                                    },
-                                    icon: Icon(Icons.star_outline_outlined),
-                                  ),
-                        );
-                      },
+class _CharacterListBody extends StatelessWidget {
+  const _CharacterListBody({required this.scrollController});
+
+  final ScrollController scrollController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Rick and Morty Test App')),
+      body: BlocBuilder<CharacterListCubit, CharacterListState>(
+        builder: (context, state) {
+          if (state is InitialState) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (state is CharacterListLoadedState) {
+            var characterList = state.characterList;
+            var characterFromDBList = state.characterFromDBList;
+
+            return Column(
+              children: [
+                Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
                     ),
+                    itemCount: characterList.length,
+                    controller: scrollController,
+                    itemBuilder: (context, index) {
+                      bool inFav =
+                          characterFromDBList.firstWhereOrNull(
+                            (element) => element.id == characterList[index].id,
+                          ) !=
+                          null;
+                      var character = characterList[index];
+                      return CharacterCard(
+                        imagePath: character.image,
+                        name: character.name,
+                        status: character.status,
+                        iconWidget:
+                            inFav
+                                ? IconButton(
+                                  onPressed: () async {
+                                    await Provider.of<DatabaseCubit>(
+                                      context,
+                                      listen: false,
+                                    ).deleteItem(characterList[index].id);
+                                  },
+                                  icon: Icon(Icons.star),
+                                )
+                                : IconButton(
+                                  onPressed: () async {
+                                    await Provider.of<DatabaseCubit>(
+                                      context,
+                                      listen: false,
+                                    ).writeToDB(characterList[index]);
+                                  },
+                                  icon: Icon(Icons.star_outline_outlined),
+                                ),
+                      );
+                    },
                   ),
-                  if (state is LoadData)
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: CircularProgressIndicator(),
-                    ),
-                ],
-              );
-            }
-            return SizedBox();
-          },
-        ),
+                ),
+                if (state is LoadData)
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: CircularProgressIndicator(),
+                  ),
+              ],
+            );
+          }
+          return SizedBox();
+        },
       ),
     );
   }
