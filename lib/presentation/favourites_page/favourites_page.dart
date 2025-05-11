@@ -5,6 +5,7 @@ import 'package:rick_and_morty_test_app/database/database_controller/database_co
 import 'package:rick_and_morty_test_app/database/database_controller/database_controller_state.dart';
 import 'package:rick_and_morty_test_app/presentation/favourites_page/favorite_page_cubit/favorite_page_cubit.dart';
 import 'package:rick_and_morty_test_app/presentation/favourites_page/favorite_page_cubit/favorite_page_state.dart';
+import 'package:rick_and_morty_test_app/presentation/widgets/character_card.dart';
 
 class FavouritesPage extends StatelessWidget {
   const FavouritesPage({super.key});
@@ -39,12 +40,12 @@ class FavouritesPage extends StatelessWidget {
                       ).sortName();
                     },
                     itemBuilder: (BuildContext context) {
-                      return {'Сортировать по имени'}.map((String choice) {
-                        return PopupMenuItem<String>(
-                          value: choice,
-                          child: Text(choice),
-                        );
-                      }).toList();
+                      return [
+                        PopupMenuItem<String>(
+                          value: "sort_by_name",
+                          child: Text("Сортировать по имени"),
+                        ),
+                      ];
                     },
                   );
                 },
@@ -65,35 +66,19 @@ class FavouritesPage extends StatelessWidget {
                   ),
                   itemCount: characterList.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      child: Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          Column(
-                            children: [
-                              Expanded(
-                                child: Image.network(
-                                  characterList[index].image,
-                                ),
-                              ),
-                              Text(characterList[index].name),
-                              Text(characterList[index].status),
-                            ],
-                          ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: IconButton(
-                              onPressed: () async {
-                                await Provider.of<DatabaseCubit>(
-                                  context,
-                                  listen: false,
-                                ).deleteItem(characterList[index].id);
-                              },
-                              icon: Icon(Icons.star),
-                            ),
-                          ),
-                        ],
+                    var character = characterList[index];
+                    return CharacterCard(
+                      imagePath: character.image,
+                      name: character.name,
+                      status: character.status,
+                      iconWidget: IconButton(
+                        onPressed: () async {
+                          await Provider.of<DatabaseCubit>(
+                            context,
+                            listen: false,
+                          ).deleteItem(characterList[index].id);
+                        },
+                        icon: Icon(Icons.star),
                       ),
                     );
                   },

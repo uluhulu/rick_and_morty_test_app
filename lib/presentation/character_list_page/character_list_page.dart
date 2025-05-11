@@ -6,6 +6,7 @@ import 'package:rick_and_morty_test_app/database/database_controller/database_co
 import 'package:rick_and_morty_test_app/presentation/character_list_page/character_list_cubit/character_list_cubit.dart';
 import 'package:rick_and_morty_test_app/presentation/character_list_page/character_list_cubit/character_list_state.dart';
 import 'package:collection/collection.dart';
+import 'package:rick_and_morty_test_app/presentation/widgets/character_card.dart';
 
 class CharacterListPage extends StatefulWidget {
   const CharacterListPage({super.key});
@@ -26,6 +27,7 @@ class _CharacterListPageState extends State<CharacterListPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    Provider.of<DatabaseCubit>(context, listen: false).getALLCharacters();
     _characterListCubit = Provider.of<CharacterListCubit>(
       context,
       listen: false,
@@ -73,51 +75,31 @@ class _CharacterListPageState extends State<CharacterListPage> {
                                   element.id == characterList[index].id,
                             ) !=
                             null;
-                        return Card(
-                          child: Stack(
-                            alignment: AlignmentDirectional.center,
-                            children: [
-                              Column(
-                                children: [
-                                  Expanded(
-                                    child: Image.network(
-                                      characterList[index].image,
-                                    ),
+                        var character = characterList[index];
+                        return CharacterCard(
+                          imagePath: character.image,
+                          name: character.name,
+                          status: character.status,
+                          iconWidget:
+                              inFav
+                                  ? IconButton(
+                                    onPressed: () async {
+                                      await Provider.of<DatabaseCubit>(
+                                        context,
+                                        listen: false,
+                                      ).deleteItem(characterList[index].id);
+                                    },
+                                    icon: Icon(Icons.star),
+                                  )
+                                  : IconButton(
+                                    onPressed: () async {
+                                      await Provider.of<DatabaseCubit>(
+                                        context,
+                                        listen: false,
+                                      ).writeToDB(characterList[index]);
+                                    },
+                                    icon: Icon(Icons.star_outline_outlined),
                                   ),
-                                  Text(characterList[index].name),
-                                  Text(characterList[index].status),
-                                ],
-                              ),
-                              Positioned(
-                                top: 0,
-                                right: 0,
-                                child:
-                                    inFav
-                                        ? IconButton(
-                                          onPressed: () async {
-                                            await Provider.of<DatabaseCubit>(
-                                              context,
-                                              listen: false,
-                                            ).deleteItem(
-                                              characterList[index].id,
-                                            );
-                                          },
-                                          icon: Icon(Icons.star),
-                                        )
-                                        : IconButton(
-                                          onPressed: () async {
-                                            await Provider.of<DatabaseCubit>(
-                                              context,
-                                              listen: false,
-                                            ).writeToDB(characterList[index]);
-                                          },
-                                          icon: Icon(
-                                            Icons.star_outline_outlined,
-                                          ),
-                                        ),
-                              ),
-                            ],
-                          ),
                         );
                       },
                     ),

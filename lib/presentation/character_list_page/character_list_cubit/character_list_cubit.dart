@@ -41,30 +41,7 @@ class CharacterListCubit extends Cubit<CharacterListState> {
     );
   }
 
-  // Future<void> addToFavourite(Character character) async {
-  //   await databaseController.writeToDB(character);
-  //   var characterFromDB = await getCharactersFromDB();
-  //   emit(
-  //     CharacterListLoadedState(
-  //       characterList: (state as CharacterListLoadedState).characterList,
-  //       characterFromDBList: characterFromDB,
-  //     ),
-  //   );
-  // }
-
-  // Future<void> deleteItemFromDB(int id) async {
-  //   await databaseController.deleteItem(id);
-  //   var characterFromDB = await getCharactersFromDB();
-  //   emit(
-  //     CharacterListLoadedState(
-  //       characterList: (state as CharacterListLoadedState).characterList,
-  //       characterFromDBList: characterFromDB,
-  //     ),
-  //   );
-  // }
-
   Future<void> updateListFromDB(List<Character> listFromDB) async {
-    var result = await databaseController.getALLCharacters();
     emit(
       CharacterListLoadedState(
         characterList: state.characterList,
