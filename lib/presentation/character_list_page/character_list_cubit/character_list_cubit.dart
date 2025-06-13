@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_test_app/data/characters_repository.dart';
-import 'package:rick_and_morty_test_app/database/database_controller/database_controller_cubit.dart';
-import 'package:rick_and_morty_test_app/domain/character.dart';
+import 'package:rick_and_morty_test_app/data/models/character_model.dart';
+import 'package:rick_and_morty_test_app/domain/database/database_controller/database_controller_cubit.dart';
+import 'package:rick_and_morty_test_app/domain/repositories/main_character_repository.dart';
 import 'package:rick_and_morty_test_app/presentation/character_list_page/character_list_cubit/character_list_state.dart';
 
 class CharacterListCubit extends Cubit<CharacterListState> {
-  final CharactersRepository charactersRepository;
+  final MainCharacterRepository charactersRepository;
   final DatabaseCubit databaseController;
   CharacterListCubit({
     required this.charactersRepository,
@@ -26,10 +26,9 @@ class CharacterListCubit extends Cubit<CharacterListState> {
       );
     }
     _page++;
-    var result = await charactersRepository.getCharacters(page: _page);
+    var result = await charactersRepository.getData(_page);
     var list = state.characterList;
     list.addAll(result);
-
     emit(
       CharacterListLoadedState(
         characterList: list,
@@ -41,7 +40,7 @@ class CharacterListCubit extends Cubit<CharacterListState> {
     );
   }
 
-  Future<void> updateListFromDB(List<Character> listFromDB) async {
+  Future<void> updateListFromDB(List<CharacteModel> listFromDB) async {
     emit(
       CharacterListLoadedState(
         characterList: state.characterList,

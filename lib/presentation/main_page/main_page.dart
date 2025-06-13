@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:rick_and_morty_test_app/presentation/character_list_page/character_list_page.dart';
 import 'package:rick_and_morty_test_app/presentation/favourites_page/favourites_page.dart';
+import 'package:rick_and_morty_test_app/presentation/main_page/theme_cubit/theme_cubit.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -30,7 +33,7 @@ class _MainPageState extends State<MainPage> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.star_outline_outlined)),
+            icon: Icon(Icons.star_outline_outlined),
             selectedIcon: Icon(Icons.star),
             label: 'Favorite',
           ),

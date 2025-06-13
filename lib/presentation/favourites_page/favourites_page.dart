@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:rick_and_morty_test_app/database/database_controller/database_controller_cubit.dart';
-import 'package:rick_and_morty_test_app/database/database_controller/database_controller_state.dart';
+import 'package:rick_and_morty_test_app/domain/database/database_controller/database_controller_cubit.dart';
+import 'package:rick_and_morty_test_app/domain/database/database_controller/database_controller_state.dart';
 import 'package:rick_and_morty_test_app/presentation/favourites_page/favorite_page_cubit/favorite_page_cubit.dart';
 import 'package:rick_and_morty_test_app/presentation/favourites_page/favorite_page_cubit/favorite_page_state.dart';
 import 'package:rick_and_morty_test_app/presentation/widgets/character_card.dart';
@@ -71,10 +71,8 @@ class _FavoritesPageBody extends StatelessWidget {
           if (state is FavoriteListLoadedState) {
             var characterList = state.characterList;
 
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
+            return ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
               itemCount: characterList.length,
               itemBuilder: (context, index) {
                 var character = characterList[index];

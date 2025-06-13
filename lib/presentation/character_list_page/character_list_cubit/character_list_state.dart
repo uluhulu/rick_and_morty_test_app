@@ -1,7 +1,7 @@
-import 'package:rick_and_morty_test_app/domain/character.dart';
+import 'package:rick_and_morty_test_app/data/models/character_model.dart';
 
 abstract class CharacterListState {
-  final List<Character> characterList;
+  final List<CharacteModel> characterList;
 
   CharacterListState({required this.characterList});
 }
@@ -11,7 +11,7 @@ class InitialState extends CharacterListState {
 }
 
 class CharacterListLoadedState extends CharacterListState {
-  final List<Character> characterFromDBList;
+  final List<CharacteModel> characterFromDBList;
 
   CharacterListLoadedState({
     required super.characterList,

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_test_app/database/database_controller/database_controller_cubit.dart';
-import 'package:rick_and_morty_test_app/domain/character.dart';
+import 'package:rick_and_morty_test_app/domain/database/database_controller/database_controller_cubit.dart';
+import 'package:rick_and_morty_test_app/data/models/character_model.dart';
 import 'package:rick_and_morty_test_app/presentation/favourites_page/favorite_page_cubit/favorite_page_state.dart';
 
 class FavoritePageCubit extends Cubit<FavoritePageState> {
@@ -9,19 +9,13 @@ class FavoritePageCubit extends Cubit<FavoritePageState> {
     getCharactersFromDB();
   }
 
-  void updateList(List<Character> charactersFromDB) {
+  void updateList(List<CharacteModel> charactersFromDB) {
     emit(FavoriteListLoadedState(characterList: charactersFromDB));
   }
 
   Future<void> getCharactersFromDB() async {
     await databaseCubit.getALLCharacters();
   }
-
-  // Future<void> deleteItemFromDB(int id) async {
-  //   await databaseController.deleteItem(id);
-  //   var characterFromDB = await getCharactersFromDB();
-  //   emit(FavoriteListLoadedState(characterList: characterFromDB));
-  // }
 
   void sortName() {
     var list = (state as FavoriteListLoadedState).characterList;
