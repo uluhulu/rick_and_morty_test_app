@@ -9,6 +9,7 @@ class NetworkChecker {
       return false;
     }
 
-    return connectivityResult.contains(ConnectivityResult.wifi);
+    return connectivityResult.contains(ConnectivityResult.wifi) ||
+        connectivityResult.contains(ConnectivityResult.mobile);
   }
 }

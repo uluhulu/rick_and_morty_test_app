@@ -1,6 +1,6 @@
 import 'package:rick_and_morty_test_app/home/home.dart';
 
-abstract class CharacterListState {
+sealed class CharacterListState {
   final List<CharacteModel> characterList;
 
   CharacterListState({required this.characterList});

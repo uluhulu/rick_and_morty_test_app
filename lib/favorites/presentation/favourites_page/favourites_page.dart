@@ -59,35 +59,34 @@ class _FavoritesPageBody extends StatelessWidget {
       ),
       body: BlocBuilder<FavoritePageCubit, FavoritePageState>(
         builder: (context, state) {
-          if (state is LoadingState) {
-            return Center(child: CircularProgressIndicator());
-          }
-          if (state is FavoriteListLoadedState) {
-            var characterList = state.characterList;
+          switch (state) {
+            case LoadingState():
+              return Center(child: CircularProgressIndicator());
+            case FavoriteListLoadedState():
+              var characterList = state.characterList;
 
-            return ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-              itemCount: characterList.length,
-              itemBuilder: (context, index) {
-                var character = characterList[index];
-                return CharacterCard(
-                  imagePath: character.image,
-                  name: character.name,
-                  status: character.status,
-                  iconWidget: IconButton(
-                    onPressed: () async {
-                      await Provider.of<DatabaseCubit>(
-                        context,
-                        listen: false,
-                      ).deleteItem(characterList[index].id);
-                    },
-                    icon: Icon(Icons.star),
-                  ),
-                );
-              },
-            );
+              return ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                itemCount: characterList.length,
+                itemBuilder: (context, index) {
+                  var character = characterList[index];
+                  return CharacterCard(
+                    imagePath: character.image,
+                    name: character.name,
+                    status: character.status,
+                    iconWidget: IconButton(
+                      onPressed: () async {
+                        await Provider.of<DatabaseCubit>(
+                          context,
+                          listen: false,
+                        ).deleteItem(characterList[index].id);
+                      },
+                      icon: Icon(Icons.star),
+                    ),
+                  );
+                },
+              );
           }
-          return SizedBox();
         },
       ),
     );

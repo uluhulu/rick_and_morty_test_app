@@ -85,37 +85,36 @@ class _CharacterListBody extends StatelessWidget {
       ),
       body: BlocBuilder<CharacterListCubit, CharacterListState>(
         builder: (context, state) {
-          if (state is InitialState) {
-            return Center(child: CircularProgressIndicator());
-          }
-          if (state is CharacterListLoadedState) {
-            var characterList = state.characterList;
-            var characterFromDBList = state.characterFromDBList;
+          switch (state) {
+            case InitialState():
+              return Center(child: CircularProgressIndicator());
+            case CharacterListLoadedState():
+              var characterList = state.characterList;
+              var characterFromDBList = state.characterFromDBList;
 
-            return ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-              controller: _scrollController,
-              itemCount: characterList.length + (state is LoadData ? 1 : 0),
-              itemBuilder: (context, index) {
-                if (index >= characterList.length) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                var character = characterList[index];
-                return CharacterCard(
-                  imagePath: character.image,
-                  name: character.name,
-                  status: character.status,
-                  iconWidget: getFavIcon(
-                    characterFromDBList,
-                    characterList,
-                    index,
-                    _databaseCubit,
-                  ),
-                );
-              },
-            );
+              return ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                controller: _scrollController,
+                itemCount: characterList.length + (state is LoadData ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (index >= characterList.length) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  var character = characterList[index];
+                  return CharacterCard(
+                    imagePath: character.image,
+                    name: character.name,
+                    status: character.status,
+                    iconWidget: getFavIcon(
+                      characterFromDBList,
+                      characterList,
+                      index,
+                      _databaseCubit,
+                    ),
+                  );
+                },
+              );
           }
-          return SizedBox();
         },
       ),
     );

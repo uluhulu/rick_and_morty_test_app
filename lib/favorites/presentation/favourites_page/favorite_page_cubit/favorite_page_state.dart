@@ -1,6 +1,6 @@
 import 'package:rick_and_morty_test_app/favorites/favorites.dart';
 
-abstract class FavoritePageState {}
+sealed class FavoritePageState {}
 
 class LoadingState extends FavoritePageState {}
 
