@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'package:rick_and_morty_test_app/home/data/services/api_manager.dart';
-import 'package:rick_and_morty_test_app/home/data/repositories/characters_repository.dart';
-import 'package:rick_and_morty_test_app/home/data/models/character_model.dart';
+import 'package:rick_and_morty_test_app/home/home.dart';
 
 class NetworkCharacterRepository implements CharactersRepository {
   NetworkCharacterRepository();

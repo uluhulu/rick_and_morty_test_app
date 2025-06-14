@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:rick_and_morty_test_app/favorites/domain/database/database_controller/database_controller_cubit.dart';
-import 'package:rick_and_morty_test_app/favorites/domain/database/database_controller/database_controller_state.dart';
-import 'package:rick_and_morty_test_app/favorites/presentation/favourites_page/favorite_page_cubit/favorite_page_cubit.dart';
-import 'package:rick_and_morty_test_app/favorites/presentation/favourites_page/favorite_page_cubit/favorite_page_state.dart';
-import 'package:rick_and_morty_test_app/widgets/character_card.dart';
+import 'package:rick_and_morty_test_app/favorites/favorites.dart';
 
 class FavouritesPage extends StatelessWidget {
   const FavouritesPage({super.key});

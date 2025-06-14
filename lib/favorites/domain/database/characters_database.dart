@@ -1,6 +1,4 @@
-import 'package:drift/drift.dart';
-import 'package:drift_flutter/drift_flutter.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:rick_and_morty_test_app/favorites/favorites.dart';
 
 part 'characters_database.g.dart';
 

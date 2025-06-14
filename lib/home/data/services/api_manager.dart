@@ -1,5 +1,4 @@
-import 'package:dio/dio.dart';
-import 'package:rick_and_morty_test_app/utils/strings.dart';
+import 'package:rick_and_morty_test_app/home/home.dart';
 
 final dio = httpClientInit();
 

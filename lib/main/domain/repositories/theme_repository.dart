@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:rick_and_morty_test_app/utils/strings.dart';
+import 'package:rick_and_morty_test_app/main/main.dart';
 
 class ThemeRepository {
   Future<void> saveThemeMode(ThemeMode mode) async {

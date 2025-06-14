@@ -1,6 +1,5 @@
-import 'dart:convert';
+import 'package:rick_and_morty_test_app/home/home.dart';
 
-import 'package:hive/hive.dart';
 part 'character_model.g.dart';
 
 @HiveType(typeId: 0)

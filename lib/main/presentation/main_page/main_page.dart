@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:rick_and_morty_test_app/home/presentation/character_list_page/character_list_page.dart';
 import 'package:rick_and_morty_test_app/favorites/presentation/favourites_page/favourites_page.dart';
-import 'package:rick_and_morty_test_app/main/presentation/main_page/theme_cubit/theme_cubit.dart';
+import 'package:rick_and_morty_test_app/home/presentation/character_list_page/character_list_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
