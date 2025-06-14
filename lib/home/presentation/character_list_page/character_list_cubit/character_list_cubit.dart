@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_test_app/data/models/character_model.dart';
-import 'package:rick_and_morty_test_app/domain/database/database_controller/database_controller_cubit.dart';
-import 'package:rick_and_morty_test_app/domain/repositories/main_character_repository.dart';
-import 'package:rick_and_morty_test_app/presentation/character_list_page/character_list_cubit/character_list_state.dart';
+import 'package:rick_and_morty_test_app/home/data/models/character_model.dart';
+import 'package:rick_and_morty_test_app/favorites/domain/database/database_controller/database_controller_cubit.dart';
+import 'package:rick_and_morty_test_app/home/domain/repositories/main_character_repository.dart';
+import 'package:rick_and_morty_test_app/home/presentation/character_list_page/character_list_cubit/character_list_state.dart';
 
 class CharacterListCubit extends Cubit<CharacterListState> {
   final MainCharacterRepository charactersRepository;

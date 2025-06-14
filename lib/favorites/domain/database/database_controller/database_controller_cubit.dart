@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_test_app/domain/database/characters_database.dart';
-import 'package:rick_and_morty_test_app/domain/database/database_controller/database_controller_state.dart';
-import 'package:rick_and_morty_test_app/data/models/character_model.dart';
+import 'package:rick_and_morty_test_app/favorites/domain/database/characters_database.dart';
+import 'package:rick_and_morty_test_app/favorites/domain/database/database_controller/database_controller_state.dart';
+import 'package:rick_and_morty_test_app/home/data/models/character_model.dart';
 
 class DatabaseCubit extends Cubit<DatabaseControllerState> {
   final _database = AppDatabase();

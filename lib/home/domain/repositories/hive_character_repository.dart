@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:rick_and_morty_test_app/data/repositories/characters_repository.dart';
-import 'package:rick_and_morty_test_app/data/models/character_model.dart';
+import 'package:rick_and_morty_test_app/home/data/repositories/characters_repository.dart';
+import 'package:rick_and_morty_test_app/home/data/models/character_model.dart';
 
 class HiveCharacterRepository implements CharactersRepository {
   final String boxName;

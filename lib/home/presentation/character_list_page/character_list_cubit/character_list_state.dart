@@ -1,4 +1,4 @@
-import 'package:rick_and_morty_test_app/data/models/character_model.dart';
+import 'package:rick_and_morty_test_app/home/data/models/character_model.dart';
 
 abstract class CharacterListState {
   final List<CharacteModel> characterList;

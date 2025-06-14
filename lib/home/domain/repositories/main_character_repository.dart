@@ -1,8 +1,8 @@
-import 'package:rick_and_morty_test_app/data/models/character_model.dart';
-import 'package:rick_and_morty_test_app/data/repositories/characters_repository.dart';
-import 'package:rick_and_morty_test_app/data/services/connection_checker.dart';
-import 'package:rick_and_morty_test_app/domain/repositories/hive_character_repository.dart';
-import 'package:rick_and_morty_test_app/domain/repositories/network_character_repository.dart';
+import 'package:rick_and_morty_test_app/home/data/models/character_model.dart';
+import 'package:rick_and_morty_test_app/home/data/repositories/characters_repository.dart';
+import 'package:rick_and_morty_test_app/home/data/services/connection_checker.dart';
+import 'package:rick_and_morty_test_app/home/domain/repositories/hive_character_repository.dart';
+import 'package:rick_and_morty_test_app/home/domain/repositories/network_character_repository.dart';
 
 class MainCharacterRepository implements CharactersRepository {
   final HiveCharacterRepository hiveCharacterRepository;
