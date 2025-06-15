@@ -10,33 +10,36 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentPageIndex = 0;
+  final ValueNotifier<int> _pageNotifier = ValueNotifier<int>(0);
   final screens = [CharacterListPage(), FavouritesPage()];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
+    return ValueListenableBuilder<int>(
+      builder: (context, value, child) {
+        return Scaffold(
+          bottomNavigationBar: NavigationBar(
+            onDestinationSelected: (int index) {
+              _pageNotifier.value = index;
+            },
+            selectedIndex: _pageNotifier.value,
+            destinations: const <Widget>[
+              NavigationDestination(
+                selectedIcon: Icon(Icons.home),
+                icon: Icon(Icons.home_outlined),
+                label: 'Home',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.star_outline_outlined),
+                selectedIcon: Icon(Icons.star),
+                label: 'Favorite',
+              ),
+            ],
           ),
-          NavigationDestination(
-            icon: Icon(Icons.star_outline_outlined),
-            selectedIcon: Icon(Icons.star),
-            label: 'Favorite',
-          ),
-        ],
-      ),
-      body: screens[currentPageIndex],
+          body: screens[_pageNotifier.value],
+        );
+      },
+      valueListenable: _pageNotifier,
     );
   }
 }
